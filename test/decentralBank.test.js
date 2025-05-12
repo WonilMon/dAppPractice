@@ -69,7 +69,7 @@ contract('decentralBank', ([owner, customer]) => {
       await tether.approve(decentralBank.address, tokens('100'), {
         from: customer,
       });
-      await decentralBank.depositBalance(tokens('100'), { from: customer });
+      await decentralBank.depositTokens(tokens('100'), { from: customer });
 
       result = await tether.balanceOf(customer);
       assert.equal(

@@ -21,7 +21,7 @@ contract DecentralBank {
     mapping (address => bool) public isStaking; 
 
     // stake Tokens
-    function depositBalance (uint _amount) public {
+    function depositTokens (uint _amount) public {
         require(_amount > 0, 'amount cannot be 0');
         tether.transferFrom(msg.sender, address(this), _amount);
 
