@@ -1,4 +1,5 @@
 import React, { useRef } from 'react';
+import Airdrop from './AirDrop';
 // import tether from '../tether.png';
 
 const Main = ({
@@ -73,7 +74,7 @@ const Main = ({
           WITHDRAW
         </button>
         <div className="card-body text-center" style={{ color: 'blue' }}>
-          AIRDROP
+          AIRDROP <Airdrop stakingBalance={stakingBalance} />
         </div>
       </div>
     </div>
