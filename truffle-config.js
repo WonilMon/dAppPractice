@@ -1,6 +1,3 @@
-require('babel-register');
-require('babel-polyfill');
-
 // Ganache NetWork
 module.exports = {
   networks: {
