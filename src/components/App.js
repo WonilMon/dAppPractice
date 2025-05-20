@@ -4,8 +4,10 @@ import Navbar from './Navbar';
 import Tether from '../truffle_abis/Tether.json';
 import RWD from '../truffle_abis/RWD.json';
 import DecentralBank from '../truffle_abis/DecentralBank.json';
+import Ballot from '../truffle_abis/Ballot.json';
 import Main from './Main.js';
 import ParticleSettings from './ParticleSettings.js';
+import BallotView from './BallotView.js';
 
 const App = () => {
   const [state, setState] = useState({
@@ -13,6 +15,7 @@ const App = () => {
     tether: {},
     rwd: {},
     decentralBank: {},
+    ballot: {},
     tetherBalance: '0',
     rwdBalance: '0',
     stakingBalance: '0',
@@ -98,6 +101,18 @@ const App = () => {
         'Error! DecentralBank contract not deployed - no detected network!',
       );
     }
+
+    const ballotData = Ballot.networks[networkId];
+    if (ballotData) {
+      const ballot = new web3.eth.Contract(Ballot.abi, ballotData.address);
+      setState((prevState) => ({
+        ...prevState,
+        ballot,
+      }));
+    } else {
+      alert('Error! Ballot contract not deployed - no detected network!');
+    }
+
     setState((prevState) => ({
       ...prevState,
       loading: false,
@@ -178,6 +193,7 @@ const App = () => {
               unstakeTokens={unstakeTokens}
             />
           )}
+          <BallotView ballot={state.ballot} account={state.account} />
         </main>
       </div>
     </div>
