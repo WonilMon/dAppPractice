@@ -19,7 +19,8 @@ module.exports = async function (deployer, network, accounts) {
   // Deploy Ballot Contract with proposals
   const proposals = [
     'Increase Staking Rate',
-    'Add New Token',
+    'Add New Token1',
+    'Add New Token2',
     'Enable Multisig Withdrawal',
   ].map((name) => web3.utils.asciiToHex(name));
   await deployer.deploy(Ballot, proposals);

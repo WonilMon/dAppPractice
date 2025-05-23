@@ -10,7 +10,7 @@ const Navbar = ({ account }) => {
       <span
         className="navbar-brand col-sm-3 col-md-2 mr-0"
         style={{ color: 'white' }}
-      >s
+      >
         <img
           src={bank}
           width="50"

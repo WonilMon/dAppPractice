@@ -4,6 +4,8 @@ import Web3 from 'web3';
 const BallotView = ({ ballot, account }) => {
   const [proposals, setProposals] = useState([]);
   const [winner, setWinner] = useState(null);
+  const [newVoter, setNewVoter] = useState('');
+  const [chairperson, setChairperson] = useState('');
 
   // Proposals
   useEffect(() => {
@@ -32,6 +34,21 @@ const BallotView = ({ ballot, account }) => {
     }
   }, [ballot]);
 
+  // Load chairperson
+  useEffect(() => {
+    const loadChairperson = async () => {
+      try {
+        const cp = await ballot.methods.chairperson().call();
+        setChairperson(cp);
+      } catch (err) {
+        console.error('❌ Error loading chairperson');
+      }
+    };
+    if (ballot && ballot.methods) {
+      loadChairperson();
+    }
+  }, [ballot]);
+
   // Vote
   const vote = async (index) => {
     try {
@@ -49,6 +66,17 @@ const BallotView = ({ ballot, account }) => {
       setWinner(Web3.utils.hexToUtf8(winnerName));
     } catch (err) {
       alert('❌ Failed to load winner.');
+    }
+  };
+
+  // Give right to vote
+  const giveRightToVote = async () => {
+    try {
+      await ballot.methods.giveRightToVote(newVoter).send({ from: account });
+      alert(`✅ Success : ${newVoter}`);
+      setNewVoter('');
+    } catch (err) {
+      alert('❌ Failed to access');
     }
   };
 
@@ -81,10 +109,31 @@ const BallotView = ({ ballot, account }) => {
         </button>
         {winner && (
           <p className="mt-2 text-lg">
-            🔥 현재 1위는: <strong>{winner}</strong>
+            🔥 1st : <strong>{winner}</strong>
           </p>
         )}
       </div>
+      {/* Chairperson only voting rights UI */}
+      {account === chairperson && (
+        <div className="mt-8">
+          <h4 className="text-lg font-bold">
+            👑 Give right to vote (Chairperson Only)
+          </h4>
+          <input
+            type="text"
+            value={newVoter}
+            onChange={(e) => setNewVoter(e.target.value)}
+            placeholder="0x..."
+            className="mt-2 px-3 py-1 w-full border rounded"
+          />
+          <button
+            onClick={giveRightToVote}
+            className="mt-2 px-4 py-2 bg-purple-600 text-white rounded"
+          >
+            ➕ Give right to vote
+          </button>
+        </div>
+      )}
     </div>
   );
 };

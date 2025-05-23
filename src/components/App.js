@@ -55,6 +55,9 @@ const App = () => {
     }));
 
     const networkId = await web3.eth.net.getId();
+    console.log('🛰 Detected network ID:', networkId);
+    console.log('🧱 Tether.networks:', Tether.networks);
+    console.log('🎯 Matching deployed address:', Tether.networks[networkId]);
 
     const tetherData = Tether.networks[networkId];
     if (tetherData) {

@@ -7,7 +7,7 @@ const ParticleSettings = () => {
       id="tsparticles"
       options={{
         background: {
-          color: { value: '#04d47a1' },
+          color: { value: '#ffffff' },
         },
         fpsLimit: 60,
         interactivity: {
@@ -39,21 +39,21 @@ const ParticleSettings = () => {
           },
         },
         particles: {
-          color: { value: '#ffffff' },
+          color: { value: '#589e7d' },
           links: {
-            color: '#ffffff',
-            distance: 150,
+            color: '#589e7d',
+            distance: 250,
             enable: true,
-            opacity: 0.5,
+            opacity: 0.8,
             width: 1,
           },
           collisions: { enable: true },
           move: {
-            direction: 'none',
+            direction: 'random',
             enable: true,
             outModes: 'bounce',
             random: false,
-            speed: 3,
+            speed: 2,
             straight: false,
           },
           number: {
@@ -63,14 +63,45 @@ const ParticleSettings = () => {
             },
             value: 80,
           },
-          opacity: { value: 0.5 },
-          shape: { type: 'circle' },
+          opacity: { value: 0.8 },
+          shape: { type: 'char' },
           size: {
             value: 5,
             random: true,
           },
         },
         detectRetina: true,
+        opacity: {
+          value: { min: 0.3, max: 0.8 },
+          animation: {
+            enable: true,
+            speed: 1,
+            sync: false,
+          },
+        },
+        size: {
+          value: { min: 2, max: 6 },
+          animation: {
+            enable: true,
+            speed: 2,
+            sync: false,
+          },
+        },
+        rotate: {
+          value: 0,
+          animation: {
+            enable: true,
+            speed: 10,
+          },
+        },
+        shape: {
+          type: 'star',
+          options: {
+            star: {
+              sides: 5,
+            },
+          },
+        },
       }}
     />
   );

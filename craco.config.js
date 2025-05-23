@@ -5,33 +5,26 @@ module.exports = {
     configure: (config) => {
       config.resolve.fallback = {
         ...config.resolve.fallback,
+        http: require.resolve('stream-http'),
+        https: require.resolve('https-browserify'),
+        os: require.resolve('os-browserify/browser'),
+        vm: require.resolve('vm-browserify'),
         crypto: require.resolve('crypto-browserify'),
         stream: require.resolve('stream-browserify'),
-        https: require.resolve('https-browserify'),
-        http: require.resolve('stream-http'),
-        os: require.resolve('os-browserify/browser'),
-        assert: require.resolve('assert/'),
-        url: require.resolve('url/'),
-        vm: require.resolve('vm-browserify'),
         buffer: require.resolve('buffer/'),
+        assert: require.resolve('assert/'),
         process: require.resolve('process/browser'),
       };
 
       config.plugins = [
         ...config.plugins,
         new webpack.ProvidePlugin({
-          Buffer: ['buffer', 'Buffer'],
           process: 'process/browser',
+          Buffer: ['buffer', 'Buffer'],
         }),
       ];
 
       return config;
-    },
-  },
-  devServer: {
-    setupMiddlewares: (middlewares, devServer) => {
-      console.log('✅ Dev server middlewares are being set up...');
-      return middlewares;
     },
   },
 };
