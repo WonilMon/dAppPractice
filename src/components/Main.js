@@ -1,5 +1,7 @@
 import React, { useRef } from 'react';
 import Airdrop from './AirDrop';
+import KYCView from './KYCView';
+
 // import tether from '../tether.png';
 
 const Main = ({
@@ -8,6 +10,8 @@ const Main = ({
   stakingBalance,
   tether,
   rwd,
+  ballot,
+  kyc,
   decentralBank,
   account,
   stakeTokens,
@@ -86,6 +90,8 @@ const Main = ({
         <div className="text-center text-sm text-[#1f2e2d] mt-4">
           AIRDROP <Airdrop stakingBalance={stakingBalance} />
         </div>
+
+        <KYCView kyc={kyc} account={account} />
       </div>
     </div>
   );

@@ -5,6 +5,7 @@ import Tether from '../truffle_abis/Tether.json';
 import RWD from '../truffle_abis/RWD.json';
 import DecentralBank from '../truffle_abis/DecentralBank.json';
 import Ballot from '../truffle_abis/Ballot.json';
+import KYC from '../truffle_abis/KYC.json';
 import Main from './Main.js';
 import ParticleSettings from './ParticleSettings.js';
 import BallotView from './BallotView.js';
@@ -16,6 +17,7 @@ const App = () => {
     rwd: {},
     decentralBank: {},
     ballot: {},
+    kyc: {},
     tetherBalance: '0',
     rwdBalance: '0',
     stakingBalance: '0',
@@ -116,6 +118,15 @@ const App = () => {
       alert('Error! Ballot contract not deployed - no detected network!');
     }
 
+    const kycData = KYC.networks[networkId];
+    if (kycData) {
+      const kycInstance = new web3.eth.Contract(KYC.abi, kycData.address);
+      setState((prevState) => ({
+        ...prevState,
+        kyc: kycInstance,
+      }));
+    }
+
     setState((prevState) => ({
       ...prevState,
       loading: false,
@@ -192,6 +203,8 @@ const App = () => {
                 decentralBank={state.decentralBank}
                 tether={state.tether}
                 rwd={state.rwd}
+                ballot={state.ballot}
+                kyc={state.kyc}
                 account={account}
                 stakeTokens={stakeTokens}
                 unstakeTokens={unstakeTokens}

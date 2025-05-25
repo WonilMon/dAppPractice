@@ -2,6 +2,7 @@ const Tether = artifacts.require('Tether');
 const RWD = artifacts.require('RWD');
 const DecentralBank = artifacts.require('DecentralBank');
 const Ballot = artifacts.require('Ballot');
+const KYC = artifacts.require('KYC');
 
 module.exports = async function (deployer, network, accounts) {
   // Deploy Mock Tether Contract
@@ -25,6 +26,9 @@ module.exports = async function (deployer, network, accounts) {
   ].map((name) => web3.utils.asciiToHex(name));
   await deployer.deploy(Ballot, proposals);
   const ballot = await Ballot.deployed();
+
+  await deployer.deploy(KYC);
+  const kyc = await KYC.deployed();
 
   // Transfer all RWD token to Decentral Bank
   await rwd.transfer(decentralBank.address, '1000000000000000000000000');
