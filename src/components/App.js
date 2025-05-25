@@ -174,30 +174,32 @@ const App = () => {
   const { account, tetherBalance, rwdBalance, stakingBalance, loading } = state;
 
   return (
-    <div className="relative min-h-screen bg-gradient-to-br from-gray-900 to-black text-white">
+    <div className="relative min-h-screen bg-[#d0f7ec] text-[#1f2e2d]">
       <ParticleSettings />
-      <Navbar account={account} />
-      <div className="flex justify-center items-center pt-20">
-        <main className="w-full max-w-xl p-6 bg-white/10 rounded-xl shadow-lg">
-          {loading ? (
-            <div className="text-center text-xl font-semibold">
-              Loading PLEASE...
-            </div>
-          ) : (
-            <Main
-              tetherBalance={tetherBalance}
-              rwdBalance={rwdBalance}
-              stakingBalance={stakingBalance}
-              decentralBank={state.decentralBank}
-              tether={state.tether}
-              rwd={state.rwd}
-              account={account}
-              stakeTokens={stakeTokens}
-              unstakeTokens={unstakeTokens}
-            />
-          )}
-          <BallotView ballot={state.ballot} account={state.account} />
-        </main>
+      <div className="relative z-10">
+        <Navbar account={account} />
+        <div className="flex justify-center items-start pt-20 px-4">
+          <main className="w-full max-w-2xl bg-white/80 rounded-2xl shadow-xl p-6">
+            {loading ? (
+              <div className="text-center text-xl font-semibold">
+                Loading PLEASE...
+              </div>
+            ) : (
+              <Main
+                tetherBalance={tetherBalance}
+                rwdBalance={rwdBalance}
+                stakingBalance={stakingBalance}
+                decentralBank={state.decentralBank}
+                tether={state.tether}
+                rwd={state.rwd}
+                account={account}
+                stakeTokens={stakeTokens}
+                unstakeTokens={unstakeTokens}
+              />
+            )}
+            <BallotView ballot={state.ballot} account={state.account} />
+          </main>
+        </div>
       </div>
     </div>
   );

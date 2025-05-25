@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from 'react';
 
 const Airdrop = ({ stakingBalance }) => {
   const [seconds, setSeconds] = useState(20);
-  const [time, setTime] = useState({});
+  const [time, setTime] = useState({ h: 0, m: 0, s: 0 });
+
   const timerRef = useRef(null);
 
   useEffect(() => {
@@ -45,8 +46,10 @@ const Airdrop = ({ stakingBalance }) => {
   };
 
   return (
-    <div style={{ color: 'black' }}>
-      {time.m}:{time.s}
+    <div className="text-[#1f2e2d] font-mono text-sm">
+      {time.m !== undefined && time.s !== undefined
+        ? `${time.m}:${time.s.toString().padStart(2, '0')}`
+        : '00:00'}
     </div>
   );
 };

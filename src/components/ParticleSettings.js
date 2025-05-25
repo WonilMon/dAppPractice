@@ -3,107 +3,70 @@ import Particles from 'react-tsparticles';
 
 const ParticleSettings = () => {
   return (
-    <Particles
-      id="tsparticles"
-      options={{
-        background: {
-          color: { value: '#ffffff' },
-        },
-        fpsLimit: 60,
-        interactivity: {
-          events: {
-            onClick: {
-              enable: true,
-              mode: 'push',
-            },
-            onHover: {
-              enable: true,
-              mode: 'repulse',
-            },
-            resize: true,
+    <div className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none">
+      <Particles
+        id="tsparticles"
+        options={{
+          fpsLimit: 60,
+          background: {
+            color: { value: '#e6fff7' }, // 밝은 민트톤 배경
           },
-          modes: {
-            bubble: {
-              distance: 400,
-              duration: 2,
-              opacity: 0.9,
-              size: 40,
+          interactivity: {
+            events: {
+              onClick: { enable: true, mode: 'push' },
+              onHover: { enable: true, mode: 'repulse' },
+              resize: true,
             },
-            push: {
-              quantity: 4,
+            modes: {
+              push: { quantity: 4 },
+              repulse: { distance: 150, duration: 0.4 },
             },
-            repulse: {
+          },
+          particles: {
+            color: { value: '#589e7d' }, // 선 색상
+            links: {
+              color: '#589e7d',
               distance: 200,
-              duration: 0.4,
-            },
-          },
-        },
-        particles: {
-          color: { value: '#589e7d' },
-          links: {
-            color: '#589e7d',
-            distance: 250,
-            enable: true,
-            opacity: 0.8,
-            width: 1,
-          },
-          collisions: { enable: true },
-          move: {
-            direction: 'random',
-            enable: true,
-            outModes: 'bounce',
-            random: false,
-            speed: 2,
-            straight: false,
-          },
-          number: {
-            density: {
               enable: true,
-              area: 800,
+              opacity: 0.6,
+              width: 1,
             },
-            value: 80,
-          },
-          opacity: { value: 0.8 },
-          shape: { type: 'char' },
-          size: {
-            value: 5,
-            random: true,
-          },
-        },
-        detectRetina: true,
-        opacity: {
-          value: { min: 0.3, max: 0.8 },
-          animation: {
-            enable: true,
-            speed: 1,
-            sync: false,
-          },
-        },
-        size: {
-          value: { min: 2, max: 6 },
-          animation: {
-            enable: true,
-            speed: 2,
-            sync: false,
-          },
-        },
-        rotate: {
-          value: 0,
-          animation: {
-            enable: true,
-            speed: 10,
-          },
-        },
-        shape: {
-          type: 'star',
-          options: {
-            star: {
-              sides: 5,
+            collisions: { enable: false },
+            move: {
+              direction: 'none',
+              enable: true,
+              outModes: { default: 'bounce' },
+              speed: 1.5,
+            },
+            number: {
+              density: { enable: true, area: 900 },
+              value: 90,
+            },
+            opacity: {
+              value: { min: 0.1, max: 0.7 },
+              animation: {
+                enable: true,
+                speed: 0.7,
+              },
+            },
+            shape: {
+              type: 'circle', // 별모양
+              options: {
+                star: { sides: 5 },
+              },
+            },
+            size: {
+              value: { min: 1, max: 4 },
+              animation: {
+                enable: true,
+                speed: 3,
+              },
             },
           },
-        },
-      }}
-    />
+          detectRetina: true,
+        }}
+      />
+    </div>
   );
 };
 

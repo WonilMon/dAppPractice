@@ -4,9 +4,33 @@ pragma solidity ^0.5.0;
 import "./RWD.sol";
 import "./Tether.sol";
 
-contract DecentralBank {
-    string public name = "Decentral Bank";
+contract Ownable {
     address public owner;
+
+    constructor() public {
+        owner = msg.sender;
+    }
+
+    modifier onlyOwner() {
+        require(msg.sender == owner, "Not owner");
+        _;
+    }
+}
+
+contract ReentrancyGuard {
+    bool internal locked;
+
+    modifier nonReentrant() {
+        require(!locked, "No reentrancy");
+        locked = true;
+        _;
+        locked = false;
+    }
+}
+
+contract DecentralBank is Ownable, ReentrancyGuard {
+
+    string public name = "Decentral Bank";
     Tether public tether;
     RWD public rwd;
 
@@ -15,10 +39,9 @@ contract DecentralBank {
     mapping(address => bool) public hasStaked;
     mapping(address => bool) public isStaking;
 
-    constructor(RWD _rwd, Tether _tether) public{
+    constructor(RWD _rwd, Tether _tether) public {
         rwd = _rwd;
         tether = _tether;
-        owner = msg.sender;
     }
 
     function depositTokens(uint _amount) external {
@@ -35,7 +58,7 @@ contract DecentralBank {
         isStaking[msg.sender] = true;
     }
 
-    function unstakeTokens() external {
+    function unstakeTokens() external nonReentrant {
         uint balance = stakingBalance[msg.sender];
         require(balance > 0, "Staking balance must be greater than 0");
 
@@ -44,9 +67,7 @@ contract DecentralBank {
         isStaking[msg.sender] = false;
     }
 
-    function issueTokens() external {
-        require(msg.sender == owner, "Only owner can issue tokens");
-
+    function issueTokens() external onlyOwner {
         for (uint i = 0; i < stakers.length; i++) {
             address recipient = stakers[i];
             uint reward = stakingBalance[recipient] / 20;
