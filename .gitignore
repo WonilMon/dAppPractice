@@ -48,3 +48,6 @@ typechain/
 .env.production
 .env.development
 .env.test
+
+/reward-cron/.env
+
